@@ -20,15 +20,19 @@ namespace Zapravka
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static Entities db = new Entities();
         public static MainWindow windowMain;
+        public static Client currentClinet = db.Client.Where(p => p.Name == "Вадим").FirstOrDefault();
         public static ChooseParamsWindow windowChooseParams = new ChooseParamsWindow();
         public static PaymentWindow windowPayment = new PaymentWindow();
         public static WindowPetrolProcess windowProcess = new WindowPetrolProcess();
+        public static int ChoosedOil = 0;
+        public static double AmounOf92Fuel = 100;
+        public static double AmounOf95Fuel = 25;
 
-        public static Entities db = new Entities();
-        public static Client currentClinet = db.Client.Where(p => p.Name == "Вадим").FirstOrDefault();
         public MainWindow()
         {
+            windowMain = this;
             InitializeComponent();
             windowMain = this;
         }
@@ -52,24 +56,89 @@ namespace Zapravka
 
         private void Continue(object sender, RoutedEventArgs e)
         {
-            if(ChooseTextBlock.Text == "")
+            PaymentWindow.Count1000f = 0;
+            PaymentWindow.Count500f = 0;
+            PaymentWindow.Count50f = 0;
+            PaymentWindow.Count100f = 0;
+            PaymentWindow.CurrentSumVar = 0;
+            windowPayment.CurrentLiters.Text = "Получаемый бензин: ";
+            //Инициализация
+            windowPayment.Count1000.Text = currentClinet.Banknote.Where(p => p.BanknoteType.Price == 1000).ToList().Count.ToString();
+            windowPayment.Count500.Text = currentClinet.Banknote.Where(p => p.BanknoteType.Price == 500).ToList().Count.ToString();
+            windowPayment.Count100.Text = currentClinet.Banknote.Where(p => p.BanknoteType.Price == 100).ToList().Count.ToString();
+            windowPayment.Count50.Text = currentClinet.Banknote.Where(p => p.BanknoteType.Price == 50).ToList().Count.ToString();
+
+            //update
+            if (MainWindow.currentClinet.Banknote.Where(p => p.BanknoteType.Price == 50).ToList().Count > 0)
+            {
+                windowPayment.Nominal50.IsEnabled = true;
+            }
+            else
+            {
+                windowPayment.Nominal50.IsEnabled = false;
+            }
+            if (MainWindow.currentClinet.Banknote.Where(p => p.BanknoteType.Price == 100).ToList().Count > 0)
+            {
+                windowPayment.Nominal100.IsEnabled = true;
+            }
+            else
+            {
+                windowPayment.Nominal100.IsEnabled = false;
+            }
+            if (MainWindow.currentClinet.Banknote.Where(p => p.BanknoteType.Price == 500).ToList().Count > 0)
+            {
+                windowPayment.Nominal500.IsEnabled = true;
+            }
+            else
+            {
+                windowPayment.Nominal500.IsEnabled = false;
+            }
+            if (MainWindow.currentClinet.Banknote.Where(p => p.BanknoteType.Price == 1000).ToList().Count > 0)
+            {
+                windowPayment.Nominal1000.IsEnabled = true;
+            }
+            else
+            {
+                windowPayment.Nominal1000.IsEnabled = false;
+            }
+            windowPayment.CurrentSum.Text = "Внесённая сумма: ";
+            if (ChooseTextBlock.Text == "")
             {
                 MessageBox.Show("Вы не выбрали бензин");
             }
             else
             {
-                this.Visibility = Visibility.Hidden;
-                windowChooseParams.Visibility = Visibility.Visible;
-                windowChooseParams.ThisSlider.Maximum = currentClinet.Automobile.MaxTankVolume;
                 if(ChooseTextBlock.Text == "95")
                 {
-                    ChooseParamsWindow.PricePerLitr = 48.55;
-                    windowChooseParams.PricePerLitrBox.Text = "Цена за литр:  48.55";
+                    if (MainWindow.AmounOf95Fuel > 5)
+                    {
+                      
+                        ChooseParamsWindow.PricePerLitr = 48.55;
+                        windowChooseParams.PricePerLitrBox.Text = "Цена за литр:  48.55";
+                        this.Visibility = Visibility.Hidden;
+                        windowPayment.Visibility = Visibility.Visible;
+                        ChoosedOil = 95;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Бензин закончился");
+                    }
                  }
                 if (ChooseTextBlock.Text == "92")
                 {
-                    ChooseParamsWindow.PricePerLitr = 45.45;
-                    windowChooseParams.PricePerLitrBox.Text = "Цена за литр:  45.45";
+                    if (MainWindow.AmounOf92Fuel > 5)
+                    {
+                      
+                        this.Visibility = Visibility.Hidden;
+                        windowPayment.Visibility = Visibility.Visible;
+                        ChooseParamsWindow.PricePerLitr = 45.45;
+                        windowChooseParams.PricePerLitrBox.Text = "Цена за литр:  45.45";
+                        ChoosedOil = 92;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Бензин закончился");
+                    }
                 }
             }
         }

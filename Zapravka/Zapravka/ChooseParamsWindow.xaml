@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Zapravka"
         mc:Ignorable="d"
-        Title="Окно выбора дополнительных параметров" Height="450" Width="700" Icon="Resources/icon.jpg">
+        Title="Окно выбора дополнительных параметров" Height="450" Width="700" Icon="Resources/icon.jpg" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="75"></RowDefinition>
@@ -14,12 +14,9 @@
         </Grid.RowDefinitions>
         <Border BorderBrush="Black" BorderThickness="4" Background="DarkOrange"></Border>
         <Border Grid.Row="2" BorderBrush="Black" BorderThickness="4" Background="DarkOrange"></Border>
-        <StackPanel Name="StackPanelMain" Orientation="Vertical" Grid.Row="1" Background="AliceBlue">
+        <StackPanel VerticalAlignment="Center" Name="StackPanelMain" Orientation="Vertical" Grid.Row="1" Background="AliceBlue">
             <StackPanel Orientation="Vertical">
-                <TextBlock HorizontalAlignment="Center" Grid.Row="1" Text="Выберите количество топлива" FontSize="26" FontFamily="comic sans ms" VerticalAlignment="Center" Margin="5">
-                </TextBlock>
-                <Slider ValueChanged="ChangeValue" Background="Blue" IsSnapToTickEnabled="True" TickPlacement="TopLeft" TickFrequency="0.5" Name="ThisSlider"  FontSize="30" FontFamily="comic sans ms" Width="350" Margin="0,20,0,0" ></Slider>
-                <TextBlock HorizontalAlignment="Center" Grid.Row="1" Text="{Binding ElementName=ThisSlider,Path=Value, StringFormat={}Литров бензина: {0}}" FontSize="26" FontFamily="comic sans ms" VerticalAlignment="Center" Margin="5">
+                <TextBlock Name="textblockAllLitres" HorizontalAlignment="Center" Grid.Row="1" Text="Вы получите бензина: " FontSize="30" FontFamily="comic sans ms" VerticalAlignment="Center" Margin="5">
                 </TextBlock>
                 <StackPanel Orientation="Vertical" Height="75" Width="500">
                     <Border Background="AntiqueWhite" Height="75" CornerRadius="35" BorderBrush="Black" BorderThickness="5">
@@ -45,7 +42,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Name="PaymentButton" IsEnabled="False" HorizontalAlignment="Center"  Grid.Row="2" Width="250" Height="60" Background="Green" Content="Перейти к оплате" FontSize="26" FontFamily="Comic sans ms" Click="Continue" Margin="25,0,15,0">
+        <Button Name="PaymentButton" IsEnabled="True" HorizontalAlignment="Center"  Grid.Row="2" Width="250" Height="60" Background="PaleVioletRed" Content="Оплатить" FontSize="26" FontFamily="Comic sans ms" Click="Continue" Margin="25,0,15,0">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="35"></Setter>

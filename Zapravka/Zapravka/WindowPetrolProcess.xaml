@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Zapravka"
         mc:Ignorable="d"
-        Title="Окно заливания бензина" Height="450" Width="500" Icon="Resources/icon.jpg" WindowStartupLocation="CenterScreen">
+        Title="Окно заливания бензина" Height="370" Width="500" Icon="Resources/icon.jpg" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="75"></RowDefinition>
@@ -20,7 +20,7 @@
                 <TextBlock Text="Сумма:" FontSize="45" FontFamily="times new roman" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,5,5,5"></TextBlock>
                 <Grid>
                     <Border Background="Azure" Margin="5" Width="320" HorizontalAlignment="Right" CornerRadius="45"></Border>
-                    <TextBlock Name="TextBlockSum" Text="5000 руб." FontSize="40" FontFamily="times new roman" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,5,100,5"></TextBlock>
+                    <TextBlock Name="TextBlockSum" Text="5000 руб." FontSize="40" FontFamily="times new roman" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="25,5,80,5"></TextBlock>
                 </Grid>
             </Grid>
             <Grid>
@@ -28,7 +28,7 @@
                 <TextBlock Text="Объём:" FontSize="45" FontFamily="times new roman" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,5,5,5"></TextBlock>
                 <Grid>
                     <Border Background="Azure" Margin="5" Width="320" HorizontalAlignment="Right" CornerRadius="45"></Border>
-                    <TextBlock Name="TextBlockLitres" Text="5000 лтр." FontSize="40" FontFamily="times new roman" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,5,100,5"></TextBlock>
+                    <TextBlock Name="TextBlockLitres" Text="5000 лтр." FontSize="40" FontFamily="times new roman" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,5,80,5"></TextBlock>
                 </Grid>
             </Grid>
             <Grid>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Zapravka"
         mc:Ignorable="d"
-        Title="Окно оплаты" Height="500" Width="700">
+        Title="Окно оплаты" Height="480" Width="700" WindowStartupLocation="CenterScreen" Icon="Resources/icon.jpg">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="75"></RowDefinition>
@@ -82,9 +82,9 @@
                     </TextBlock>
                 </Grid>
                 <Grid Margin="0,5,0,0">
-                    <Border Name="BorderTotalSum" BorderBrush="Black" BorderThickness="3" Margin="15,0,15,0" Background="Azure"></Border>
-                    <TextBlock HorizontalAlignment="Left" Name="TotalSum"  Grid.Row="1"  Text="Сумма к оплате:  " FontSize="32" FontFamily="times new roman" VerticalAlignment="Center" Margin="20,5,5,5">
-                </TextBlock>
+                    <Border BorderBrush="Black" BorderThickness="3" Margin="15,0,15,0" Background="Azure"></Border>
+                    <TextBlock HorizontalAlignment="Left" Name="CurrentLiters"  Grid.Row="1"  Text="Получаемый бензин:  " FontSize="32" FontFamily="times new roman" VerticalAlignment="Center" Margin="20,5,5,5">
+                    </TextBlock>
                 </Grid>
             </StackPanel>
         </StackPanel>
@@ -98,7 +98,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Name="PayButton" IsEnabled="False" HorizontalAlignment="Center"  Grid.Row="2" Width="200" Height="60" Background="PaleVioletRed" Content="Оплатить" FontSize="26" FontFamily="Comic sans ms" Click="PayClick" Margin="0,0,15,0">
+        <Button Name="PayButton" IsEnabled="False" HorizontalAlignment="Center"  Grid.Row="2" Width="200" Height="60" Background="Green" Content="Продолжить" FontSize="26" FontFamily="Comic sans ms" Click="PayClick" Margin="0,0,15,0">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="35"></Setter>

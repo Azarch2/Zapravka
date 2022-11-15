@@ -29,29 +29,54 @@ namespace Zapravka
         public void ProcessZaliv()
         {
             
-            Dispatcher.Invoke(new Action(() => TextBlockPricePerLitr.Text = ChooseParamsWindow.PricePerLitr.ToString()));
-            double currLiter = 0.5;
+            Dispatcher.Invoke(new Action(() => TextBlockPricePerLitr.Text = ChooseParamsWindow.PricePerLitr.ToString() + " руб."));
+            double currLiter = 0.1;
+            Dispatcher.Invoke(new Action(() => FinalButton.IsEnabled = false ));
+            
             for (; ; )
             {
                 
-                Dispatcher.Invoke(new Action(() => TextBlockLitres.Text = currLiter.ToString() + " лтр."));
-                Dispatcher.Invoke(new Action(() => TextBlockSum.Text = (currLiter * ChooseParamsWindow.PricePerLitr).ToString() + " руб."));
-                currLiter += 0.5;
-                if(currLiter>= ChooseParamsWindow.TotalLiters)
+                Dispatcher.Invoke(new Action(() => TextBlockLitres.Text = Math.Round( currLiter,2).ToString() + " лтр."));
+                Dispatcher.Invoke(new Action(() => TextBlockSum.Text = Math.Round(currLiter * ChooseParamsWindow.PricePerLitr,2).ToString() + " руб."));
+                currLiter += 0.1;
+                if(currLiter>= PaymentWindow.AllLiters)
                 {
-                    Dispatcher.Invoke(new Action(() => TextBlockLitres.Text = currLiter.ToString()));
-                    Dispatcher.Invoke(new Action(() => TextBlockSum.Text = (currLiter * ChooseParamsWindow.PricePerLitr).ToString()));
+                   // Dispatcher.Invoke(new Action(() => TextBlockLitres.Text = currLiter.ToString() + " лтр."));
+                    //Dispatcher.Invoke(new Action(() => TextBlockSum.Text = (currLiter * ChooseParamsWindow.PricePerLitr).ToString() + " руб."));
+                    if (MainWindow.ChoosedOil == 95)
+                    {
+                        MainWindow.AmounOf95Fuel -= currLiter;
+                    }
+                    if (MainWindow.ChoosedOil == 92)
+                    {
+                        MainWindow.AmounOf92Fuel -= currLiter;
+                    }
                     MessageBox.Show("Вы успешно залили бензин!");
+                    PaymentWindow.Count1000f = 0;
+                    PaymentWindow.Count500f = 0;
+                    PaymentWindow.Count50f = 0;
+                    PaymentWindow.Count100f = 0;
+                    Dispatcher.Invoke(new Action(() => FinalButton.IsEnabled = true));
                     break;
                 }
-                if (currLiter >= MainWindow.currentClinet.Automobile.MaxTankVolume - (MainWindow.currentClinet.Automobile.TankVolume + currLiter))
+              /*  if (MainWindow.currentClinet.Automobile.MaxTankVolume <= (ChooseParamsWindow.CurretPetrolVolume + currLiter))
                 {
-                   Dispatcher.Invoke(new Action(() => TextBlockLitres.Text = currLiter.ToString()));
-                   Dispatcher.Invoke(new Action(() => TextBlockSum.Text = (currLiter * ChooseParamsWindow.PricePerLitr).ToString()));
+                   Dispatcher.Invoke(new Action(() => TextBlockLitres.Text = currLiter.ToString() + " лтр."));
+                   Dispatcher.Invoke(new Action(() => TextBlockSum.Text = (currLiter * ChooseParamsWindow.PricePerLitr).ToString() + " руб."));
+                  if(MainWindow.ChoosedOil == 95)
+                    {
+                        MainWindow.AmounOf95Fuel -= currLiter;
+                    }
+                    if (MainWindow.ChoosedOil == 92)
+                    {
+                        MainWindow.AmounOf92Fuel -= currLiter;
+                    }
                     MessageBox.Show("Вы успешно залили бензин!");
+                    MessageBox.Show("Вы заплатили на" + ( PaymentWindow.CurrentSumVar - currLiter * ChooseParamsWindow.PricePerLitr) + " руб. больше");
+                    
                     break;
-                }
-                Thread.Sleep(350);
+                }*/
+                Thread.Sleep(20);
             }
             
             foreach (var item in MainWindow.db.Client)
@@ -71,7 +96,11 @@ namespace Zapravka
 
         private void Leave(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            //Application.Current.Shutdown();
+            this.Visibility = Visibility.Hidden;
+            MainWindow.windowMain.Visibility = Visibility.Visible;
+            MainWindow.windowMain.ChooseTextBlock.Text = "";
+            MainWindow.windowMain.StackPanelMain.Background = new SolidColorBrush(Colors.White);
         }
     }
 }

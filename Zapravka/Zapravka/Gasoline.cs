@@ -22,6 +22,8 @@ namespace Zapravka
     
         public int Id { get; set; }
         public int StationId { get; set; }
+
+
     
         public virtual Station Station { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

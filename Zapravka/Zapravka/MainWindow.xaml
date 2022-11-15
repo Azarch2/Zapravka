@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Zapravka"
         mc:Ignorable="d"
-        Title="Главное окно" Height="450" Width="700" Icon="Resources/icon.jpg">
+        Title="Главное окно" Height="450" Width="700" Icon="Resources/icon.jpg" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="75"></RowDefinition>
@@ -21,16 +21,16 @@
             </StackPanel>
             <Grid>
                 <Grid HorizontalAlignment="Left" Margin="150,0,0,0" >
-                <Border Background="Yellow" BorderBrush="Red" BorderThickness="3" CornerRadius="90" Width="165" Height="165"></Border>
-                <Border Background="Aquamarine" BorderBrush="MediumVioletRed" BorderThickness="3" CornerRadius="90" Width="150" Height="150"></Border>
-                <Button Click="Choose92" Width="125" Height="125" Background="DeepSkyBlue" FontFamily="comic sans ms" FontSize="40" Foreground="AntiqueWhite" Content="92">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="90"></Setter>
-                        </Style>
-                    </Button.Resources>
-                </Button>
-            </Grid>
+                    <Border Background="Yellow" BorderBrush="Red" BorderThickness="3" CornerRadius="90" Width="165" Height="165"></Border>
+                    <Border Background="Aquamarine" BorderBrush="MediumVioletRed" BorderThickness="3" CornerRadius="90" Width="150" Height="150"></Border>
+                    <Button Click="Choose92" Width="125" Height="125" Background="DeepSkyBlue" FontFamily="comic sans ms" FontSize="40" Foreground="AntiqueWhite" Content="92">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="90"></Setter>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
                 <Grid HorizontalAlignment="Right" Margin="0,0,150,0" >
                     <Border Background="Yellow" BorderBrush="Red" BorderThickness="3" CornerRadius="90" Width="165" Height="165"></Border>
                     <Border Background="Aquamarine" BorderBrush="MediumVioletRed" BorderThickness="3" CornerRadius="90" Width="150" Height="150"></Border>
@@ -42,11 +42,16 @@
                         </Button.Resources>
                     </Button>
                 </Grid>
+
             </Grid>
-    </StackPanel>
+        </StackPanel>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="1" Text="45.45 руб/лтр" FontSize="22" FontWeight="Bold" FontFamily="times new roman" VerticalAlignment="Center" Margin="5,195,240,5" >
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="1" Text="48.55 руб/лтр" FontSize="22" FontWeight="Bold" FontFamily="times new roman" VerticalAlignment="Center" Margin="240,195,5,5" >
+        </TextBlock>
         <Border Grid.Row="1" Height="285" Margin="0,0,0,0" BorderBrush="Black" BorderThickness="4"></Border>
         <TextBlock Text="Добро пожаловать на заправочную станцию" FontSize="26" FontFamily="comic sans ms" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,5,5,5"></TextBlock>
-        
+       
         <Image Height="60" Source="Resources/Logo.jpg" HorizontalAlignment="Left" Margin="15,0,0,0"></Image>
         <Button HorizontalAlignment="Left"  Grid.Row="2" Width="200" Height="60" Background="OrangeRed" Content="Выйти" FontSize="26" FontFamily="Comic sans ms" Click="Exit" Margin="15,0,0,0">
             <Button.Resources>
