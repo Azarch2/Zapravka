@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZapravkaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Automobile">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="TankVolume" Type="Double" Nullable="false" />
+    <Property Name="MaxTankVolume" Type="Double" Nullable="false" />
+    <Property Name="Mark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Client" Relationship="Self.FK__Automobile__Id__412EB0B6" FromRole="Automobile" ToRole="Client" />
+  </EntityType>
+  <EntityType Name="Banknote">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Number" Type="Int32" Nullable="false" />
+    <Property Name="BanknoteTypeId" Type="Int32" Nullable="false" />
+    <Property Name="ClientId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BanknoteType" Relationship="Self.FK_Banknote_BanknoteType" FromRole="Banknote" ToRole="BanknoteType" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_Banknote_Client" FromRole="Banknote" ToRole="Client" />
+  </EntityType>
+  <EntityType Name="BanknoteType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Banknote" Relationship="Self.FK_Banknote_BanknoteType" FromRole="BanknoteType" ToRole="Banknote" />
+  </EntityType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TotalBalance" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Automobile" Relationship="Self.FK__Automobile__Id__412EB0B6" FromRole="Client" ToRole="Automobile" />
+    <NavigationProperty Name="Banknote" Relationship="Self.FK_Banknote_Client" FromRole="Client" ToRole="Banknote" />
+  </EntityType>
+  <EntityType Name="Gasoline">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StationId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Station" Relationship="Self.FK_Gasoline_Station" FromRole="Gasoline" ToRole="Station" />
+    <NavigationProperty Name="PetrolType" Relationship="Self.FK_PetrolType_Gasoline" FromRole="Gasoline" ToRole="PetrolType" />
+  </EntityType>
+  <EntityType Name="PetrolType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="GasolineId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Gasoline" Relationship="Self.FK_PetrolType_Gasoline" FromRole="PetrolType" ToRole="Gasoline" />
+  </EntityType>
+  <EntityType Name="Station">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Number" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Gasoline" Relationship="Self.FK_Gasoline_Station" FromRole="Station" ToRole="Gasoline" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__Automobile__Id__412EB0B6">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Automobile" Type="Self.Automobile" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Automobile">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Banknote_BanknoteType">
+    <End Role="BanknoteType" Type="Self.BanknoteType" Multiplicity="1" />
+    <End Role="Banknote" Type="Self.Banknote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BanknoteType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Banknote">
+        <PropertyRef Name="BanknoteTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Banknote_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Banknote" Type="Self.Banknote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Banknote">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Gasoline_Station">
+    <End Role="Station" Type="Self.Station" Multiplicity="1" />
+    <End Role="Gasoline" Type="Self.Gasoline" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Station">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Gasoline">
+        <PropertyRef Name="StationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PetrolType_Gasoline">
+    <End Role="Gasoline" Type="Self.Gasoline" Multiplicity="1" />
+    <End Role="PetrolType" Type="Self.PetrolType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gasoline">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PetrolType">
+        <PropertyRef Name="GasolineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Automobile" EntityType="Self.Automobile" />
+    <EntitySet Name="Banknote" EntityType="Self.Banknote" />
+    <EntitySet Name="BanknoteType" EntityType="Self.BanknoteType" />
+    <EntitySet Name="Client" EntityType="Self.Client" />
+    <EntitySet Name="Gasoline" EntityType="Self.Gasoline" />
+    <EntitySet Name="PetrolType" EntityType="Self.PetrolType" />
+    <EntitySet Name="Station" EntityType="Self.Station" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK__Automobile__Id__412EB0B6" Association="Self.FK__Automobile__Id__412EB0B6">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Automobile" EntitySet="Automobile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Banknote_BanknoteType" Association="Self.FK_Banknote_BanknoteType">
+      <End Role="BanknoteType" EntitySet="BanknoteType" />
+      <End Role="Banknote" EntitySet="Banknote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Banknote_Client" Association="Self.FK_Banknote_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Banknote" EntitySet="Banknote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Gasoline_Station" Association="Self.FK_Gasoline_Station">
+      <End Role="Station" EntitySet="Station" />
+      <End Role="Gasoline" EntitySet="Gasoline" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PetrolType_Gasoline" Association="Self.FK_PetrolType_Gasoline">
+      <End Role="Gasoline" EntitySet="Gasoline" />
+      <End Role="PetrolType" EntitySet="PetrolType" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ZapravkaModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ZapravkaModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>
